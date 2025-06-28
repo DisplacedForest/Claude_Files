@@ -1,0 +1,208 @@
+{
+  "permissions": {
+    "allow": [
+      // File System Operations
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(ls:*)",
+      "Bash(mv:*)",
+      "Bash(cd:*)",
+      "Bash(pwd)",
+      "Bash(touch:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      
+      // Development Tools
+      "Bash(npm:install*)",
+      "Bash(npm:test*)",
+      "Bash(npm:run:lint*)",
+      "Bash(npm:run:build*)",
+      "Bash(npm:run:typecheck*)",
+      "Bash(npm:run:format*)",
+      "Bash(npm:run:check*)",
+      "Bash(npm:audit*)",
+      "Bash(npx:*)",
+      "Bash(yarn:*)",
+      "Bash(pnpm:*)",
+      
+      // Testing Frameworks
+      "Bash(jest:*)",
+      "Bash(vitest:*)",
+      "Bash(cypress:*)",
+      "Bash(playwright:*)",
+      
+      // Git Operations (Full Access)
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      
+      // Database Tools
+      "Bash(psql:*)",
+      "Bash(redis-cli:*)",
+      "Bash(supabase:*)",
+      
+      // File Editing Tools (Claude Code built-ins)
+      "Read(*)",
+      "Write(*)",
+      "Edit(*)",
+      "MultiEdit(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "LS(*)",
+      
+      // Claude Code Tools
+      "WebSearch(*)",
+      "WebFetch(*)",
+      "Task(*)",
+      "TodoRead",
+      "TodoWrite(*)",
+      "NotebookRead(*)",
+      "NotebookEdit(*)",
+      
+      // Safe Utility Commands
+      "Bash(echo:*)",
+      "Bash(which:*)",
+      "Bash(curl:*)",
+      "Bash(true)",
+      "Bash(false)",
+      "Bash(test:*)",
+      "Bash([:*)",
+      
+      // Text Processing
+      "Bash(jq:*)",
+      "Bash(sed:*)",
+      "Bash(awk:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(wc:*)",
+      "Bash(date:*)",
+      
+      // Code Quality Tools
+      "Bash(eslint:*)",
+      "Bash(prettier:*)",
+      "Bash(tsc:*)",
+      "Bash(typescript:*)",
+      
+      // Package Information
+      "Bash(npm:list*)",
+      "Bash(npm:info*)",
+      "Bash(npm:view*)",
+      "Bash(npm:outdated*)",
+      
+      // Environment Information
+      "Bash(node:--version)",
+      "Bash(npm:--version)",
+      "Bash(git:--version)"
+    ],
+    "deny": [
+      // Destructive File Operations
+      "Bash(rm:*)",
+      "Bash(rmdir:*)",
+      "Bash(dd:*)",
+      "Bash(format:*)",
+      "Bash(shred:*)",
+      "Bash(truncate:*)",
+      
+      // Server Management (User Controls)
+      "Bash(npm:run:dev*)",
+      "Bash(npm:start*)",
+      "Bash(node:server*)",
+      "Bash(nodemon:*)",
+      "Bash(next:dev*)",
+      "Bash(vite:dev*)",
+      "Bash(webpack:serve*)",
+      
+      // System Administration
+      "Bash(sudo:*)",
+      "Bash(su:*)",
+      "Bash(chmod:777*)",
+      "Bash(chown:root*)",
+      "Bash(passwd:*)",
+      "Bash(useradd:*)",
+      "Bash(userdel:*)",
+      
+      // Dangerous File Operations
+      "Bash(>:*)",
+      "Bash(>>:*)",
+      "Bash(tee:/etc/*)",
+      
+      // Process Management
+      "Bash(kill:*)",
+      "Bash(killall:*)",
+      "Bash(pkill:*)",
+      "Bash(shutdown:*)",
+      "Bash(reboot:*)",
+      "Bash(halt:*)",
+      
+      // Package Removal
+      "Bash(npm:uninstall*)",
+      "Bash(apt:*)",
+      "Bash(yum:*)",
+      "Bash(brew:uninstall*)",
+      "Bash(pip:uninstall*)",
+      
+      // Network/Security Operations
+      "Bash(ssh:*)",
+      "Bash(scp:*)",
+      "Bash(rsync:*)",
+      "Bash(gpg:*)",
+      "Bash(openssl:*)",
+      "Bash(wget:*)",
+      
+      // Environment Modification
+      "Bash(export:*)",
+      "Bash(unset:*)",
+      "Bash(source:*)",
+      "Bash(./*)",
+      "Bash(bash:*)",
+      "Bash(sh:*)",
+      "Bash(zsh:*)",
+      "Bash(fish:*)",
+      
+      // Database Destructive Operations
+      "Bash(psql:DROP*)",
+      "Bash(psql:DELETE*)",
+      "Bash(redis-cli:FLUSHALL*)",
+      "Bash(redis-cli:FLUSHDB*)",
+      
+      // System Information That Could Be Sensitive
+      "Bash(ps:*)",
+      "Bash(top:*)",
+      "Bash(htop:*)",
+      "Bash(netstat:*)",
+      "Bash(ss:*)",
+      "Bash(lsof:*)",
+      
+      // File System Mounting
+      "Bash(mount:*)",
+      "Bash(umount:*)",
+      "Bash(fdisk:*)",
+      "Bash(parted:*)",
+      
+      // Compression (Potential for Overwrite)
+      "Bash(tar:--extract*)",
+      "Bash(unzip:*)",
+      "Bash(7z:x*)"
+    ]
+  },
+  "settings": {
+    "description": "Claude Struct Development Environment",
+    "version": "1.0.0",
+    "lastUpdated": "2024-01-15",
+    "features": {
+      "testDrivenDevelopment": true,
+      "multiAgentOrchestration": true,
+      "githubIntegration": true,
+      "schemaFirstDevelopment": true
+    },
+    "restrictions": {
+      "noServerControl": "User manages development servers",
+      "noFileDelection": "Use git or manual file management for deletions",
+      "noSystemAdmin": "No elevated privileges or system modifications",
+      "testFirst": "All implementation must follow TDD principles"
+    }
+  }
+}
