@@ -16,7 +16,7 @@ This repository contains:
 
 ```
 claude-development-methodology/
-├── MASTER_CLAUDE.md           # Core development methodology and principles
+├── CLAUDE.md                 # Core development methodology and principles
 ├── TECHSTACKS.md             # Comprehensive tech stack selection guide
 ├── README.md                 # This file
 │
@@ -73,7 +73,7 @@ Start with the [Tech Stack Selection Guide](TECHSTACKS.md) to choose the best fr
 
 ### 3. Follow the Development Methodology
 
-The [Master Development Guide](MASTER_CLAUDE.md) provides:
+The [Master Development Guide](CLAUDE.md) provides:
 
 - **Test-Driven Development** - Write tests first, always
 - **Schema-First Development** - Define types and validation upfront
