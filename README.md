@@ -39,9 +39,28 @@ claude-development-methodology/
 │   ├── bugs/              # Bug tracking templates
 │   └── templates/         # Reusable documentation templates
 │
-└── templates/               # Project templates
-    ├── github-issue-template.md
-    └── implement-scaffold-templates.md
+├── templates/               # Project templates
+│   ├── github-issue-template.md
+│   └── implement-scaffold-templates.md
+│
+└── .claude/                 # Claude Code configuration and commands
+    ├── CLAUDE.md           # Project-specific development methodology
+    ├── SETUP.md            # Claude Code setup instructions
+    ├── settings.local.json.example  # Example permissions configuration
+    ├── settings.local.json # Local permissions (gitignored)
+    ├── commands/           # Claude custom commands
+    │   ├── agents/         # Multi-agent development system
+    │   └── [commands]      # Individual command definitions
+    └── scripts/            # PowerShell scripts for agent spawning
+        ├── claude-spawn.ps1        # Core script to spawn Claude instances
+        ├── backend_dev.ps1         # Backend developer agent script
+        ├── db_architect.ps1        # Database architect agent script
+        ├── e2e_test_engineer.ps1   # E2E test engineer agent script
+        ├── frontend_dev.ps1        # Frontend developer agent script
+        ├── lint_fixer.ps1          # Lint fixer agent script
+        ├── monitor-agent.ps1       # Agent monitoring script
+        ├── qa_agent.ps1            # QA agent script
+        └── test_engineer.ps1       # Test engineer agent script
 ```
 
 ## 🚀 Getting Started
@@ -209,6 +228,145 @@ This is a living document. To contribute:
 - **[Claude Permissions](guides/claude-permissions-guide.md)** - Security configuration
 - **[GitHub Integration](guides/github-integration-guide.md)** - Issue and PR workflows
 - **[Project Templates](tech-stacks/)** - Framework-specific configurations
+
+## 🤖 Claude Commands & Agents
+
+### Available Commands
+
+#### Planning & Tracking
+- **`/add-feat`** - Create and track new features with GitHub issues
+- **`/add-bug`** - Report and track bugs with structured templates
+- **`/plan`** - Create detailed specifications from feature requirements
+
+#### Development
+- **`/implement`** - Generate scaffolding from issue requirements
+- **`/test`** - Validate implementation against requirements
+- **`/fix`** - Structured bug fixing workflow
+- **`/refactor`** - Safe code refactoring with impact analysis
+
+#### Deployment & Operations
+- **`/release`** - Manage releases with changelog generation
+- **`/migrate`** - Database migration management
+- **`/monitor`** - Performance monitoring and alerting
+
+#### Quality & Documentation
+- **`/audit`** - Comprehensive codebase analysis
+- **`/review`** - Automated PR review
+- **`/document`** - Auto-generate documentation
+
+#### Setup & Configuration
+- **`/setup`** - Developer environment setup
+
+### Multi-Agent Development System
+
+The `.claude/commands/agents/` directory contains specialized AI agents that work together to implement complex features using Test-Driven Development (TDD) principles:
+
+#### Agent Roles
+
+1. **Orchestrator** (`/orchestrate`) - Master coordinator that manages the entire workflow
+   - Analyzes feature requirements and spawns appropriate agents
+   - Enforces TDD practices (tests first, implementation second)
+   - Manages inter-agent communication
+
+2. **Test Engineer** - PRIMARY agent that writes failing tests first
+   - Creates comprehensive test cases from acceptance criteria
+   - Ensures 100% behavior coverage
+   - ALWAYS runs before any implementation
+
+3. **Database Architect** - Designs database schemas and migrations
+   - Creates structures to support test requirements
+   - Documents schema changes and business rules
+
+4. **Backend Developer** - Implements server-side logic and APIs
+   - Creates minimal code to make tests pass
+   - Follows functional programming patterns
+
+5. **Frontend Developer** - Implements UI components
+   - Builds components to satisfy test requirements
+   - Uses TypeScript strict mode throughout
+
+6. **E2E Test Engineer** - Creates end-to-end integration tests
+   - Validates complete user journeys
+   - Tests workflows across full stack
+
+7. **QA Agent** - Final quality validation
+   - Runs full test suite
+   - Validates code quality standards
+   - Ensures documentation completeness
+
+8. **Lint Fixer** - Automated code quality enforcement
+   - Fixes style and quality issues
+   - Preserves functionality while improving code
+
+#### Usage Examples
+
+```bash
+# Simple feature (backend only)
+/orchestrate "Add user profile endpoint"
+
+# Complex feature (full stack)
+/orchestrate "Implement user dashboard with analytics"
+
+# Starting a new feature workflow
+/add-feat "User authentication"       # Creates issue #123
+/plan 123                             # Creates detailed spec
+/implement 123                        # Generates code scaffolding
+/test 123                            # Validates implementation
+/review 456                          # Reviews PR #456
+/release 2.0.0                       # Creates release
+```
+
+### Command Workflow
+
+All commands integrate with GitHub issues using standardized status labels:
+- `Backlog` - Initial state for features
+- `Ready` - Requirements defined, ready to implement
+- `In progress` - Currently being worked on
+- `In review` - PR created, under review
+- `Done` - Completed and merged
+
+### PowerShell Scripts
+
+The `.claude/scripts/` directory contains PowerShell scripts that enable the multi-agent system to spawn independent Claude instances for parallel development:
+
+#### Core Script
+- **`claude-spawn.ps1`** - Main script that spawns Claude in new Windows Terminal windows
+  - Handles Windows-to-WSL path conversion
+  - Opens Claude with specific tasks in new terminal windows
+  - Enables true parallel agent execution
+
+#### Agent Scripts
+Each agent has a corresponding PowerShell script that:
+- Spawns a new Claude instance with agent-specific instructions
+- Passes the appropriate agent markdown file as context
+- Enables concurrent execution of multiple agents
+- Maintains isolation between agent responsibilities
+
+#### Usage
+These scripts are automatically called by the orchestrator when spawning agents:
+```powershell
+# Example: Spawn test engineer agent
+./.claude/scripts/test_engineer.ps1
+
+# Example: Monitor agent execution
+./.claude/scripts/monitor-agent.ps1
+```
+
+### Claude Code Configuration
+
+#### Setup Process
+1. **Copy the example settings:**
+   ```bash
+   cp .claude/settings.local.json.example .claude/settings.local.json
+   ```
+
+2. **Permissions Configuration:**
+   The `settings.local.json` file controls what Claude can and cannot do:
+   - **Allowed**: File operations, development tools, git, testing frameworks
+   - **Restricted**: File deletion, server control, system admin, package removal
+
+3. **Verify Setup:**
+   Follow `.claude/SETUP.md` for detailed setup instructions and permission customization
 
 ## 🎯 Philosophy
 
